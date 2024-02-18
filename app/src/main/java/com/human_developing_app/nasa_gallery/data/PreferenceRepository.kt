@@ -1,0 +1,3 @@
+package com.human_developing_app.nasa_gallery.data
+
+interface PreferenceRepository

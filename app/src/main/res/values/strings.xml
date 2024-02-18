@@ -1,0 +1,18 @@
+<resources>
+  <string name="app_name">NASA Gallery</string>
+  <string name="view_service_label">View</string>
+  <string name="share_label">Share</string>
+  <string name="next_label">Next</string>
+  <string name="previous_label">Previous</string>
+  <string name="date_pattern">dd.MM.yyyy</string>
+  <string name="date_label">Date: %s</string>
+  <string name="apod_service_name">Astronomy Picture of the Day</string>
+  <string name="apod_service_desc">One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.</string>
+  <string name="mars_service_name">Mars Rover Photos</string>
+  <string name="mars_service_desc">Each rover has its own set of photos stored in the database, which can be queried separately. There are several possible queries that can be made against the API. Photos are organized by the sol (Martian rotation or day) on which they were taken, counting up from the rover\'s landing date. A photo taken on Curiosity\'s 1000th Martian sol exploring Mars, for example, will have a sol attribute of 1000. If instead you prefer to search by the Earth date on which a photo was taken, you can do that, too.</string>
+  <string name="epic_service_name">Earth Polychromatic Imaging Camera</string>
+  <string name="epic_service_desc">The EPIC API provides information on the daily imagery collected by DSCOVR\'s Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</string>
+  <string name="error_title_dialog">Oops! Something goes wrong!\n</string>
+  <string name="no_internet">No internet! Check your connection!</string>
+  <string name="download_apod_error">Could\'t download image, check your internet and try again</string>
+</resources>
