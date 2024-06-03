@@ -37,18 +37,15 @@ class ApodFragment : BaseFragment<FragmentApodBinding>(bindingInflater = { infla
   }
 
   override fun onLoading() {
-    binding.apodSlides.visibility = View.GONE
     binding.contentLoading.visibility = View.VISIBLE
   }
 
   override fun onLoaded() {
-    binding.apodSlides.visibility = View.VISIBLE
     binding.contentLoading.visibility = View.GONE
   }
 
   override fun onError(errorMessage: String) {
     binding.contentLoading.visibility = View.GONE
-    binding.apodSlides.visibility = View.VISIBLE
     ErrorDialog(requireContext(), errorMessage).show()
   }
 
@@ -59,11 +56,9 @@ class ApodFragment : BaseFragment<FragmentApodBinding>(bindingInflater = { infla
     binding.apodSlides.registerOnPageChangeCallback(pageChangeCallback)
     viewModel.initApod()
     lifecycleScope.launch {
-      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-        viewModel.data().collect { apods ->
-          apodAdapter.submitList(apods.apodsList) {
-            binding.apodSlides.setCurrentItem(apods.middleIndex, false)
-          }
+      viewModel.data().collect { apods ->
+        apodAdapter.submitList(apods.apodsList) {
+          binding.apodSlides.setCurrentItem(apods.middleIndex, true)
         }
       }
     }

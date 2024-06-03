@@ -4,23 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <FrameLayout
-    android:id="@+id/contentLoading"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:alpha="0.6"
-    android:background="@color/black"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <ProgressBar
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center" />
-  </FrameLayout>
-
   <androidx.viewpager2.widget.ViewPager2
     android:id="@+id/apodSlides"
     android:layout_width="match_parent"
@@ -29,5 +12,27 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
+
+  <FrameLayout
+    android:id="@+id/contentLoading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:background="@color/transparent_loading_bg_color" />
+
+    <ProgressBar
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center" />
+  </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

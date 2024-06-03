@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.human_developing_app.nasa_gallery.TestFragment
 import com.human_developing_app.nasa_gallery.all_services.domain.OnServiceClick
 import com.human_developing_app.nasa_gallery.all_services.domain.ServicesViewModel
 import com.human_developing_app.nasa_gallery.base.BaseFragment
@@ -21,6 +23,7 @@ class ServiceFragment :
     FragmentServicesOverviewBinding.inflate(inflater, container, false)
   }), OnServiceClick {
   private val viewModel by viewModels<ServicesViewModel>()
+
   @Inject
   lateinit var router: Router
 
@@ -33,6 +36,9 @@ class ServiceFragment :
     binding.overviewList.layoutManager = LinearLayoutManager(requireContext())
     val adapter = ServicesAdapter(this)
     binding.overviewList.adapter = adapter
+    binding.nasaServicesTitle.setOnClickListener {
+      router.navigate(TestFragment::class.java, "TestFragment")
+    }
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.data().collect { models ->
         adapter.submitList(models)
