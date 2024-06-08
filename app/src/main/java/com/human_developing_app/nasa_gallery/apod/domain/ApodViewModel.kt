@@ -3,7 +3,6 @@ package com.human_developing_app.nasa_gallery.apod.domain
 import android.app.DatePickerDialog.OnDateSetListener
 import android.widget.DatePicker
 import androidx.lifecycle.viewModelScope
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.human_developing_app.nasa_gallery.R
 import com.human_developing_app.nasa_gallery.apod.data.ApodCloudModel
 import com.human_developing_app.nasa_gallery.apod.data.ApodImageDownloadException

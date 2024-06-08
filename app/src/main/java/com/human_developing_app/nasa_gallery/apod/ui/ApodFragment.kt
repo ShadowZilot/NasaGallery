@@ -4,10 +4,12 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.human_developing_app.nasa_gallery.apod.domain.ApodDomainModel
 import com.human_developing_app.nasa_gallery.apod.domain.ApodViewModel
@@ -54,6 +56,7 @@ class ApodFragment : BaseFragment<FragmentApodBinding>(bindingInflater = { infla
     lceCollect(viewModel.lceState())
     binding.apodSlides.adapter = apodAdapter
     binding.apodSlides.registerOnPageChangeCallback(pageChangeCallback)
+    (binding.apodSlides[0] as RecyclerView).itemAnimator = null
     viewModel.initApod()
     lifecycleScope.launch {
       viewModel.data().collect { apods ->
@@ -86,6 +89,11 @@ class ApodFragment : BaseFragment<FragmentApodBinding>(bindingInflater = { infla
       year, month, dayOfMonth
     )
     datePicker.show()
+  }
+
+  override fun onDestroy() {
+    Log.d("ApodFragment", "ApodFragment onDestroy invoked")
+    super.onDestroy()
   }
 
   override fun shareItem(item: ApodDomainModel) {

@@ -1,6 +1,7 @@
 package com.human_developing_app.nasa_gallery.di
 
 import android.content.Context
+import com.human_developing_app.nasa_gallery.BuildConfig
 import com.human_developing_app.nasa_gallery.apod.data.ApodApi
 import com.human_developing_app.nasa_gallery.apod.data.ApodLocalRepository
 import com.human_developing_app.nasa_gallery.apod.data.ApodLocalRepositoryImpl
@@ -13,6 +14,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
@@ -29,27 +31,43 @@ class NetworkModule {
   }
 
   @Provides
+  fun provideHttpLogger(): HttpLoggingInterceptor {
+    return HttpLoggingInterceptor().apply {
+      level = if (BuildConfig.DEBUG)
+        HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+    }
+  }
+
+  @Provides
+  fun provideHttpClient(
+    @Named(API_KEY) apiKey: String,
+    httpLoggingInterceptor: HttpLoggingInterceptor
+  ): OkHttpClient {
+    return OkHttpClient.Builder()
+      .addInterceptor(Interceptor { chain ->
+        val requestWithKey = chain.request().newBuilder()
+          .url(
+            chain.request()
+              .url.newBuilder()
+              .addQueryParameter("api_key", apiKey)
+              .build()
+          )
+          .build()
+        return@Interceptor chain.proceed(requestWithKey)
+      })
+      .addInterceptor(httpLoggingInterceptor)
+      .build()
+  }
+
+  @Provides
+  @Inject
   fun provideAuthRetrofit(
-    @Named(API_KEY) apiKey: String
+    okHttpClient: OkHttpClient
   ): Retrofit {
     return Retrofit.Builder()
       .baseUrl("https://api.nasa.gov")
       .addConverterFactory(GsonConverterFactory.create())
-      .client(
-        OkHttpClient.Builder()
-          .addInterceptor(Interceptor { chain ->
-            val requestWithKey = chain.request().newBuilder()
-              .url(
-                chain.request()
-                  .url.newBuilder()
-                  .addQueryParameter("api_key", apiKey)
-                  .build()
-              )
-              .build()
-            return@Interceptor chain.proceed(requestWithKey)
-          })
-          .build()
-      )
+      .client(okHttpClient)
       .build()
   }
 

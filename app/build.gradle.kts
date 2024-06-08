@@ -9,6 +9,10 @@ android {
   namespace = "com.human_developing_app.nasa_gallery"
   compileSdk = 34
 
+  buildFeatures {
+    buildConfig = true
+  }
+
   defaultConfig {
     applicationId = "com.human_developing_app.nasa_gallery"
     minSdk = 24
